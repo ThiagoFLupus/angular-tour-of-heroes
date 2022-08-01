@@ -1,0 +1,27 @@
+<h2>My Heroes</h2>
+<ul class="heroes">
+    <li *ngFor="let hero of heroes">
+        <a routerLink="/detail/{{hero.id}}">
+            <button type="button">
+                <span class="badge">{{hero.id}}</span>
+                <span class="name">{{hero.name}}</span>
+            </button>
+        </a>
+        <button type="button" class="delete" title="delete hero" (click)="delete(hero)">x</button>
+    </li>
+</ul>
+
+<!--  Seção abaixo acrescentada por mim. Não faz parte do projeto Tutorial. Implementado para informar, quando não houver objetos na lista-->
+<div *ngIf="heroes.length == 0">
+    <span [style]="{'color': 'red', 'font-size': 'x-large'}"> No found data </span>
+</div>
+
+<div>
+    <label for="new-hero">Hero name: </label>
+    <input id="new-hero" #heroName />
+  
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''">
+      Add hero
+    </button>
+</div>

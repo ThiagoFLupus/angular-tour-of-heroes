@@ -1,0 +1,12 @@
+<!-- segunda condição do *ngIf adicionada por mim. Não faz parte do projeto Tutorial. Serve para não aparecer a view de objeto Heroe selecionado-->
+<div *ngIf="hero && hero.id != 0">
+    <h2>{{hero.name | uppercase}} Details</h2>
+    <div>id: {{hero.id}}</div>
+    <div>
+        <label for="hero-name">Hero name: </label>
+        <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
+    </div>
+</div>
+
+<button type="button" (click)="goBack()">go back</button>
+<button type="button" (click)="save()">save</button>
