@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  tour-of-heroes:
+    container_name: tour-of-heroes
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports: 
+      - 4200:4200
+    restart: always
