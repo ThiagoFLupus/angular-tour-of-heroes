@@ -21,12 +21,12 @@ export class HeroDetailComponent implements OnInit {
     private router: Router,
   ) { }
 
-  @Input() hero?: Hero;
+  hero?: Hero;
 
   getHero(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.heroService.getHero(id)
-        .subscribe(hero => this.hero = hero);
+          .subscribe(hero => this.hero = { ...hero});
   }
 
   goBack(): void {
@@ -34,9 +34,13 @@ export class HeroDetailComponent implements OnInit {
   }
 
   save(): void {
+    // if (this.hero) {
+    //   this.heroService.updateHero(this.hero)
+    //     .subscribe(() => this.goBack());
+    // }
     if (this.hero) {
-      this.heroService.updateHero(this.hero)
-        .subscribe(() => this.goBack());
+      this.heroesService.updateFromApi(this.hero).
+        subscribe(() => this.goBack())
     }
   }
 
@@ -46,7 +50,7 @@ export class HeroDetailComponent implements OnInit {
     if (Object.keys(respHero).length == 0){
       this.router.navigate(['/heroes']);
     }else{
-      this.hero = respHero;
+      this.hero = { ...respHero};
     }
   }
 

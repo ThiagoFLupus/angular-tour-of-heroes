@@ -4,6 +4,8 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { HeroesService } from '../heroes/state/heroes.service';
+import { HeroesStore } from '../heroes/state/heroes.store';
  
 
 @Component({
@@ -12,14 +14,21 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./hero-search.component.css']
 })
 export class HeroSearchComponent implements OnInit {
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService, private heroesService: HeroesService) { }
 
   heroes$!: Observable<Hero[]>;
   private searchTerms = new Subject<string>();
+  foundHeroes: Hero[] = [];
 
   // Push a search term into the observable stream.
   search(term: string): void {
-    this.searchTerms.next(term);
+    // this.searchTerms.next(term);
+    if (term.length > 1){
+      const resp = this.heroesService.searchByName(term)
+      this.foundHeroes = resp;
+    }else{
+      this.foundHeroes = [];
+    }
   }
 
   ngOnInit(): void {

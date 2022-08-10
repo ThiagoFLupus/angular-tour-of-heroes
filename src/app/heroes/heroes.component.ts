@@ -46,6 +46,11 @@ export class HeroesComponent implements OnInit {
       )
   }
 
+  addHeroesFromApi(name: string){
+    this.heroesService.addFromApi(name)
+      .subscribe(response => console.log(response))
+  }
+
   ngOnInit(): void {
     this.getHeroes();
   }
